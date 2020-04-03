@@ -43,4 +43,14 @@ class Updater {
         stopped = true
         dispatcher.stopCheckingUpdates()
     }
+
+    internal fun startListening() {
+        stopped = false
+        executor.execute { dispatcher.startCheckingUpdates() }
+    }
+
+    internal fun stopListening() {
+        stopped = true
+        dispatcher.stopCheckingUpdates()
+    }
 }

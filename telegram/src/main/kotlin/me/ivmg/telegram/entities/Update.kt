@@ -1,5 +1,6 @@
 package me.ivmg.telegram.entities
 
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName as Name
 import me.ivmg.telegram.Poll
 import me.ivmg.telegram.entities.payments.PreCheckoutQuery
@@ -18,7 +19,13 @@ data class Update constructor(
     @Name("shipping_query") val shippingQuery: ShippingQuery? = null,
     @Name("pre_checkout_query") val preCheckoutQuery: PreCheckoutQuery? = null,
     @Name("poll") val poll: Poll? = null
-) : DispatchableObject
+) : DispatchableObject {
+
+    companion object {
+        fun deserialize(value: String): Update =
+            Gson().fromJson(value, Update::class.java)
+    }
+}
 
 /**
  * Generate list of key-value from start payload.
